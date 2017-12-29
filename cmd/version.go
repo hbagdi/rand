@@ -22,44 +22,21 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 )
 
-const (
-	//VERSION is the current version of rand cli
-	VERSION = "v0.1.0"
-)
+var version bool
 
-var count int
-
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "rand",
-	Short: "Generate psuedo-random data",
-	//TODO Add Long description
-	// 	Long: `A longer description that spans multiple lines and likely contains
-	// examples and usage of using your application. For example:
+// versionCmd represents the version command
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Display the version of rand",
 	Run: func(cmd *cobra.Command, args []string) {
-		if version {
-			fmt.Println(VERSION)
-		} else {
-			cmd.Help()
-		}
+		fmt.Println(VERSION)
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
-
 func init() {
-	rootCmd.PersistentFlags().IntVarP(&count, "count", "c", 1, "repeat the action(default: 1)")
-	rootCmd.Flags().BoolVarP(&version, "version", "v", false, "Display the current version")
+	rootCmd.AddCommand(versionCmd)
 }
