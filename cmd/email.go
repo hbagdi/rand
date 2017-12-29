@@ -18,17 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package main
+package cmd
 
 import (
+	"fmt"
+
 	"github.com/brianvoe/gofakeit"
-	"github.com/hbagdi/rand/cmd"
+	"github.com/spf13/cobra"
 )
 
-func init() {
-	gofakeit.Seed(0)
+// emailCmd represents the email command
+var emailCmd = &cobra.Command{
+	Use:   "email",
+	Short: "Generate a random e-mail address",
+	Run: func(cmd *cobra.Command, args []string) {
+		for i := 0; i < count; i++ {
+			fmt.Println(gofakeit.Email())
+		}
+	},
 }
 
-func main() {
-	cmd.Execute()
+func init() {
+	rootCmd.AddCommand(emailCmd)
 }

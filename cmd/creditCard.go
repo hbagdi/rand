@@ -18,17 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package main
+package cmd
 
 import (
+	"fmt"
+
 	"github.com/brianvoe/gofakeit"
-	"github.com/hbagdi/rand/cmd"
+	"github.com/spf13/cobra"
 )
 
-func init() {
-	gofakeit.Seed(0)
+// creditCardCmd represents the creditCard command
+var creditCardCmd = &cobra.Command{
+	Use:   "creditCard",
+	Short: "Generate a random credit card number",
+	Run: func(cmd *cobra.Command, args []string) {
+		for i := 0; i < count; i++ {
+			fmt.Println(gofakeit.CreditCardNumber())
+		}
+	},
 }
 
-func main() {
-	cmd.Execute()
+func init() {
+	rootCmd.AddCommand(creditCardCmd)
 }

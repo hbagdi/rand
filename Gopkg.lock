@@ -8,14 +8,26 @@
   version = "v3.1.0"
 
 [[projects]]
-  name = "github.com/urfave/cli"
+  name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
-  revision = "cfb38830724cc34fedffe9a2a29fb54fa9169cd1"
-  version = "v1.20.0"
+  revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+  version = "v1.0"
+
+[[projects]]
+  name = "github.com/spf13/cobra"
+  packages = ["."]
+  revision = "7b2c5ac9fc04fc5efafb60700713d4fa609b777b"
+  version = "v0.0.1"
+
+[[projects]]
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+  version = "v1.0.0"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c9567dce77df83800d2883421979fccee42ae4e8fe2810b8fb5ae506afced206"
+  inputs-digest = "0465b850f94cc5e9cbe66e4a7b6acfd9412236c6c1e7458a2249221de5d1147e"
   solver-name = "gps-cdcl"
   solver-version = 1
