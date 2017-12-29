@@ -16,12 +16,21 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "rand"
 	app.Usage = "generate semantic psuedo-random data"
+	app.Flags = []cli.Flag{
+		cli.IntFlag{
+			Value: 1,
+			Name:  "count, c",
+			Usage: "repeat the command `n` times",
+		},
+	}
 	app.Commands = []cli.Command{
 		{
 			Name:  "name",
 			Usage: "generate a random (first and last) name of person",
 			Action: func(c *cli.Context) error {
-				fmt.Println(gofakeit.Name())
+				for i := 0; i < c.GlobalInt("count"); i++ {
+					fmt.Println(gofakeit.Name())
+				}
 				return nil
 			},
 		},
@@ -29,7 +38,9 @@ func main() {
 			Name:  "email",
 			Usage: "generate a random e-mail address",
 			Action: func(c *cli.Context) error {
-				fmt.Println(gofakeit.Email())
+				for i := 0; i < c.GlobalInt("count"); i++ {
+					fmt.Println(gofakeit.Email())
+				}
 				return nil
 			},
 		},
@@ -37,7 +48,9 @@ func main() {
 			Name:  "cell",
 			Usage: "generate a random cellular number",
 			Action: func(c *cli.Context) error {
-				fmt.Println(gofakeit.Phone())
+				for i := 0; i < c.GlobalInt("count"); i++ {
+					fmt.Println(gofakeit.Phone())
+				}
 				return nil
 			},
 		},
@@ -45,7 +58,9 @@ func main() {
 			Name:  "cc",
 			Usage: "generate a random credit card number",
 			Action: func(c *cli.Context) error {
-				fmt.Println(gofakeit.CreditCardNumber())
+				for i := 0; i < c.GlobalInt("count"); i++ {
+					fmt.Println(gofakeit.CreditCardNumber())
+				}
 				return nil
 			},
 		},
@@ -53,7 +68,9 @@ func main() {
 			Name:  "ssn",
 			Usage: "generate a random US Social Security Number (SSN)",
 			Action: func(c *cli.Context) error {
-				fmt.Println(gofakeit.SSN())
+				for i := 0; i < c.GlobalInt("count"); i++ {
+					fmt.Println(gofakeit.SSN())
+				}
 				return nil
 			},
 		},
