@@ -29,7 +29,7 @@ import (
 
 // creditCardCmd represents the creditCard command
 var creditCardCmd = &cobra.Command{
-	Use:   "creditCard",
+	Use:   "credit-card",
 	Short: "Generate a random credit card number",
 	Run: func(cmd *cobra.Command, args []string) {
 		for i := 0; i < count; i++ {

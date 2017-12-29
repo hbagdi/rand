@@ -45,6 +45,6 @@ var colorCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(colorCmd)
 	colorCmd.Flags().BoolVar(&hex, "hex", false, "output a color in hex format (#4285f4)")
+	rootCmd.AddCommand(colorCmd)
 }
