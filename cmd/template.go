@@ -24,6 +24,8 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"sort"
+	"strings"
 	"text/tabwriter"
 
 	"os"
@@ -39,13 +41,18 @@ var catagoriesHelp string
 func initCatagoriesHelp() {
 	var p string
 	catagories := gofakeit.Catagories()
-	for catagory, v := range catagories {
-		p += catagory + ":\t\t"
-		for _, subCatagory := range v {
-			p += subCatagory + ", "
-		}
-		p += "\n"
+	var keys []string
+	for k := range catagories {
+		keys = append(keys, k)
 	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		subCatagories := catagories[key]
+		sort.Strings(subCatagories)
+		p += key + ":\t" + strings.Join(subCatagories, ", ") + "\n"
+	}
+
 	var buf bytes.Buffer
 	w := tabwriter.NewWriter(&buf, 0, 8, 0, '\t', 0)
 	w.Write([]byte(p))
