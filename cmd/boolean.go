@@ -81,10 +81,40 @@ Outcome will be either 'Heads' or 'Tails'.`,
 	},
 }
 
+// genderCmd represents the coin-flip command
+var genderCmd = &cobra.Command{
+	Use:   "gender",
+	Short: "Generate a random gender(male/female only).",
+	Long: `Generates a random Gender value.
+Outcome will be either 'Male' or 'Female'.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		output := ""
+		for i := 0; i < count; i++ {
+			val := gofakeit.Bool()
+			if short {
+				output = "F"
+				if !val {
+					output = "M"
+				}
+				fmt.Println(output)
+			} else {
+				output = "Female"
+				if !val {
+					output = "Male"
+				}
+				fmt.Println(output)
+			}
+		}
+	},
+}
+
 func init() {
 	booleanCmd.Flags().BoolVarP(&short, "short", "s", false, "output an abbrevaited value")
 	rootCmd.AddCommand(booleanCmd)
 
 	coinFlipCmd.Flags().BoolVarP(&short, "short", "s", false, "output an abbrevaited value")
 	rootCmd.AddCommand(coinFlipCmd)
+
+	genderCmd.Flags().BoolVarP(&short, "short", "s", false, "output an abbrevaited value")
+	rootCmd.AddCommand(genderCmd)
 }
