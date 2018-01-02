@@ -56,7 +56,7 @@ Use the following flag for IPv6`,
 
 var suffixOnly bool
 
-// domainCmd represents the ip command
+// domainCmd represents the domain command
 var domainCmd = &cobra.Command{
 	Use:   "domain",
 	Short: "Generate random Domain Name",
@@ -71,12 +71,51 @@ var domainCmd = &cobra.Command{
 	},
 }
 
+// httpStatusCmd represents the http-status command
+var httpStatusCmd = &cobra.Command{
+	Use:   "http-status",
+	Short: "Generate random HTTP Status Code",
+	Run: func(cmd *cobra.Command, args []string) {
+		for i := 0; i < count; i++ {
+			fmt.Println(gofakeit.StatusCode())
+		}
+	},
+}
+
+// httpMethodCmd represents the http-method command
+var httpMethodCmd = &cobra.Command{
+	Use:   "http-method",
+	Short: "Generate random HTTP Method",
+	Run: func(cmd *cobra.Command, args []string) {
+		for i := 0; i < count; i++ {
+			fmt.Println(gofakeit.HTTPMethod())
+		}
+	},
+}
+
+// userAgentCmd represents the user-agent command
+var userAgentCmd = &cobra.Command{
+	Use:   "user-agent",
+	Short: "Generate random User Agent",
+	Run: func(cmd *cobra.Command, args []string) {
+		for i := 0; i < count; i++ {
+			fmt.Println(gofakeit.UserAgent())
+		}
+	},
+}
+
 func init() {
 	ipCmd.Flags().BoolVar(&v6, "v6", false, "Output a IPv6 addresses")
 	webCmd.AddCommand(ipCmd)
 
 	domainCmd.Flags().BoolVar(&suffixOnly, "suffix-only", false, "Output only a TLD name")
 	webCmd.AddCommand(domainCmd)
+
+	webCmd.AddCommand(httpStatusCmd)
+
+	webCmd.AddCommand(httpMethodCmd)
+
+	webCmd.AddCommand(userAgentCmd)
 
 	rootCmd.AddCommand(webCmd)
 }
