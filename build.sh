@@ -16,15 +16,15 @@ build () {
 }
 
 build linux amd64
-build linux 386
-build linux arm
-build linux arm64
+#build linux 386
+#build linux arm
+#build linux arm64
 
 build windows amd64
-build windows 386
+#build windows 386
 
 build darwin amd64
-build darwin 386
+#build darwin 386
 
-build freebsd amd64
-build freebsd 386
+#build freebsd amd64
+#build freebsd 386
