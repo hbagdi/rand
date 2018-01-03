@@ -22,6 +22,7 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/brianvoe/gofakeit"
 	"github.com/spf13/cobra"
@@ -30,10 +31,11 @@ import (
 // creditCardCmd represents the creditCard command
 var creditCardCmd = &cobra.Command{
 	Use:   "credit-card",
-	Short: "Generate a random credit card number",
+	Short: "Generate random credit card details",
 	Run: func(cmd *cobra.Command, args []string) {
 		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.CreditCardNumber())
+			cc := gofakeit.CreditCard()
+			fmt.Printf("%s %s %s %s\n", cc.Type, strconv.Itoa(cc.Number), cc.Cvv, cc.Exp)
 		}
 	},
 }
