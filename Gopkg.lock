@@ -4,8 +4,8 @@
 [[projects]]
   name = "github.com/brianvoe/gofakeit"
   packages = [".","data"]
-  revision = "ce9c6922d5a88a7ab4fed48d73191a6ec8dfbe88"
-  version = "v3.2.0"
+  revision = "c8708312b43b8ee0513c476c88308f16b0eeacd1"
+  version = "v3.5.0"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
