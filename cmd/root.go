@@ -34,6 +34,18 @@ const (
 
 var count int
 
+type runFunc func(cmd *cobra.Command, args []string) error
+
+func repeatFunc(f runFunc, cmd *cobra.Command, args []string) error {
+	for i := 0; i < count; i++ {
+		err := f(cmd, args)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "rand",

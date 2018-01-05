@@ -31,11 +31,14 @@ import (
 var emailCmd = &cobra.Command{
 	Use:   "email",
 	Short: "Generate a random e-mail address",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Email())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runEmail, cmd, args)
 	},
+}
+
+func runEmail(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Email())
+	return nil
 }
 
 func init() {
