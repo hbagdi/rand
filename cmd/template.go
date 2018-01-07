@@ -35,28 +35,28 @@ import (
 
 var template string
 var templateFile string
-var catagoriesHelp string
+var categoriesHelp string
 
-func initCatagoriesHelp() {
+func initCategoriesHelp() {
 	var p string
-	catagories := gofakeit.Catagories()
+	categories := gofakeit.Catagories()
 	var keys []string
-	for k := range catagories {
+	for k := range categories {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
 
 	for _, key := range keys {
-		subCatagories := catagories[key]
-		sort.Strings(subCatagories)
-		p += key + ":\t" + strings.Join(subCatagories, ", ") + "\n"
+		subCategories := categories[key]
+		sort.Strings(subCategories)
+		p += key + ":\t" + strings.Join(subCategories, ", ") + "\n"
 	}
 
 	var buf bytes.Buffer
 	w := tabwriter.NewWriter(&buf, 0, 8, 0, '\t', 0)
 	w.Write([]byte(p))
 	w.Flush()
-	catagoriesHelp = buf.String()
+	categoriesHelp = buf.String()
 }
 
 func runTemplate(cmd *cobra.Command, args []string) error {
@@ -82,21 +82,21 @@ func runTemplate(cmd *cobra.Command, args []string) error {
 }
 
 func init() {
-	initCatagoriesHelp()
+	initCategoriesHelp()
 	var templateCmd = &cobra.Command{
 		Use:   "template",
 		Short: "Generate a random string based on a template",
 		Long: `Generate a random string based on a template
 A template is a simply a string with specific locations at which 
-to insert random data. Place a catagory and sub-catagory in curly
+to insert random data. Place a category and sub-category in curly
 braces {} and that part of the input will be replaced
 Example: Input : {person.first}##??
 		 Output: John42fs
 Any # will be replaced by a numberic digit (0-9) 
 and ? by alphabets (a-z).
-Possible catagories and sub-catagories are:
+Possible categories and sub-categories are:
 
-` + catagoriesHelp,
+` + categoriesHelp,
 		RunE: runTemplate,
 	}
 

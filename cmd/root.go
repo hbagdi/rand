@@ -49,7 +49,7 @@ func repeatFunc(f runFunc, cmd *cobra.Command, args []string) error {
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "rand",
-	Short: "Generate psuedo-random data",
+	Short: "Generate pseudo-random data",
 	//TODO Add Long description
 	// 	Long: `A longer description that spans multiple lines and likely contains
 	// examples and usage of using your application. For example:
