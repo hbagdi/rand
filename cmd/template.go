@@ -22,13 +22,12 @@ package cmd
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"sort"
 	"strings"
 	"text/tabwriter"
-
-	"os"
 
 	"github.com/brianvoe/gofakeit"
 	"github.com/spf13/cobra"
@@ -60,6 +59,28 @@ func initCatagoriesHelp() {
 	catagoriesHelp = buf.String()
 }
 
+func runTemplate(cmd *cobra.Command, args []string) error {
+	if template == "" && templateFile == "" {
+		return errors.New("Please provide a template" +
+			" via --template or --file")
+	}
+	var content string
+	if template != "" {
+		content = template
+	} else {
+		fileContent, err := ioutil.ReadFile(templateFile)
+		if err != nil {
+			return err
+		}
+		content = string(fileContent)
+	}
+	return repeatFunc(
+		func(cmd *cobra.Command, args []string) error {
+			fmt.Println(gofakeit.Generate(string(content)))
+			return nil
+		}, cmd, args)
+}
+
 func init() {
 	initCatagoriesHelp()
 	var templateCmd = &cobra.Command{
@@ -76,34 +97,12 @@ and ? by alphabets (a-z).
 Possible catagories and sub-catagories are:
 
 ` + catagoriesHelp,
-		Run: func(cmd *cobra.Command, args []string) {
-			if template == "" && templateFile == "" {
-				cmd.Help()
-				return
-			}
-			if template != "" {
-				for i := 0; i < count; i++ {
-					fmt.Println(gofakeit.Generate(template))
-				}
-				return
-			}
-			if templateFile != "" {
-				content, err := ioutil.ReadFile(templateFile)
-				if err != nil {
-					fmt.Fprintf(os.Stderr, "Error: %v", err)
-					return
-				}
-				for i := 0; i < count; i++ {
-					fmt.Println(gofakeit.Generate(string(content)))
-				}
-				return
-			}
-		},
+		RunE: runTemplate,
 	}
 
 	templateCmd.Flags().StringVarP(&template,
 		"template", "t", "", "Generate a random string based on a template")
-	templateCmd.Flags().StringVarP(&templateFile, "template-file", "f", "",
-		"Generate a random string based on a template from a file")
+	templateCmd.Flags().StringVarP(&templateFile, "file", "f", "",
+		"Generate a random string based on a template from an input file")
 	rootCmd.AddCommand(templateCmd)
 }
