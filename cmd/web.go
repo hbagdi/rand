@@ -43,15 +43,18 @@ var ipCmd = &cobra.Command{
 	Long: `Generate a random IP Address
 IP v4(default) and v6 are supported.
 Use the following flag for IPv6`,
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			if v6 {
-				fmt.Println(gofakeit.IPv6Address())
-			} else {
-				fmt.Println(gofakeit.IPv4Address())
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runIP, cmd, args)
 	},
+}
+
+func runIP(cmd *cobra.Command, args []string) error {
+	if v6 {
+		fmt.Println(gofakeit.IPv6Address())
+	} else {
+		fmt.Println(gofakeit.IPv4Address())
+	}
+	return nil
 }
 
 var suffixOnly bool
@@ -60,48 +63,60 @@ var suffixOnly bool
 var domainCmd = &cobra.Command{
 	Use:   "domain",
 	Short: "Generate random Domain Name",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			if suffixOnly {
-				fmt.Println(gofakeit.DomainSuffix())
-			} else {
-				fmt.Println(gofakeit.DomainName())
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runDomain, cmd, args)
 	},
+}
+
+func runDomain(cmd *cobra.Command, args []string) error {
+	if suffixOnly {
+		fmt.Println(gofakeit.DomainSuffix())
+	} else {
+		fmt.Println(gofakeit.DomainName())
+	}
+	return nil
 }
 
 // httpStatusCmd represents the http-status command
 var httpStatusCmd = &cobra.Command{
 	Use:   "http-status",
 	Short: "Generate random HTTP Status Code",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.StatusCode())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runHTTPStatus, cmd, args)
 	},
+}
+
+func runHTTPStatus(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.StatusCode())
+	return nil
 }
 
 // httpMethodCmd represents the http-method command
 var httpMethodCmd = &cobra.Command{
 	Use:   "http-method",
 	Short: "Generate random HTTP Method",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.HTTPMethod())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runHTTPMethod, cmd, args)
 	},
+}
+
+func runHTTPMethod(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.HTTPMethod())
+	return nil
 }
 
 // userAgentCmd represents the user-agent command
 var userAgentCmd = &cobra.Command{
 	Use:   "user-agent",
 	Short: "Generate random User Agent",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.UserAgent())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runUserAgent, cmd, args)
 	},
+}
+
+func runUserAgent(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.UserAgent())
+	return nil
 }
 
 func init() {

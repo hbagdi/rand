@@ -36,11 +36,14 @@ var max = math.MaxInt32
 var numberCmd = &cobra.Command{
 	Use:   "number",
 	Short: "Generate a random integer",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Number(min, max))
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runNumber, cmd, args)
 	},
+}
+
+func runNumber(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Number(min, max))
+	return nil
 }
 
 func init() {

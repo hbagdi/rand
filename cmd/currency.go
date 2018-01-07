@@ -34,16 +34,19 @@ var info bool
 var currencyCmd = &cobra.Command{
 	Use:   "currency",
 	Short: "Generate a random currency",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			currency := gofakeit.Currency()
-			output := currency.Short
-			if info {
-				output += " " + currency.Long
-			}
-			fmt.Println(output)
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runCurrency, cmd, args)
 	},
+}
+
+func runCurrency(cmd *cobra.Command, args []string) error {
+	currency := gofakeit.Currency()
+	output := currency.Short
+	if info {
+		output += " " + currency.Long
+	}
+	fmt.Println(output)
+	return nil
 }
 
 func init() {

@@ -43,23 +43,25 @@ Hex format is "#4285f4".
 RGB format is "rgb(66,133,244)".
 	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		if hex && rgb {
-			return errors.New("--hex and --rgb are exclusive")
-
-		}
-		for i := 0; i < count; i++ {
-			if hex {
-				fmt.Println(gofakeit.HexColor())
-			} else if rgb {
-				rgb := gofakeit.RGBColor()
-				fmt.Println("rgb(" + strconv.Itoa(rgb[0]) + "," +
-					strconv.Itoa(rgb[1]) + "," + strconv.Itoa(rgb[2]) + ")")
-			} else {
-				fmt.Println(gofakeit.Color())
-			}
-		}
-		return nil
+		return repeatFunc(runColor, cmd, args)
 	},
+}
+
+func runColor(cmd *cobra.Command, args []string) error {
+	if hex && rgb {
+		return errors.New("--hex and --rgb are exclusive")
+
+	}
+	if hex {
+		fmt.Println(gofakeit.HexColor())
+	} else if rgb {
+		rgb := gofakeit.RGBColor()
+		fmt.Println("rgb(" + strconv.Itoa(rgb[0]) + "," +
+			strconv.Itoa(rgb[1]) + "," + strconv.Itoa(rgb[2]) + ")")
+	} else {
+		fmt.Println(gofakeit.Color())
+	}
+	return nil
 }
 
 func init() {

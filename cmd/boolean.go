@@ -36,22 +36,23 @@ var booleanCmd = &cobra.Command{
 	Short: "Generate a random Boolean value.",
 	Long: `Generates a random Boolean value.
 Outcome will be either 'true' or 'false'.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		output := ""
-		for i := 0; i < count; i++ {
-			val := gofakeit.Bool()
-			output = "T"
-			if short {
-				output = "T"
-				if !val {
-					output = "F"
-				}
-				fmt.Println(output)
-			} else {
-				fmt.Println(val)
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runBoolean, cmd, args)
 	},
+}
+
+func runBoolean(cmd *cobra.Command, args []string) error {
+	output := "T"
+	val := gofakeit.Bool()
+	if short {
+		if !val {
+			output = "F"
+		}
+		fmt.Println(output)
+	} else {
+		fmt.Println(val)
+	}
+	return nil
 }
 
 // coinFlipCmd represents the coin-flip command
@@ -60,25 +61,27 @@ var coinFlipCmd = &cobra.Command{
 	Short: "Generate an outcome of a coin flip.",
 	Long: `Generates a random Boolean value.
 Outcome will be either 'Heads' or 'Tails'.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		output := ""
-		for i := 0; i < count; i++ {
-			val := gofakeit.Bool()
-			if short {
-				output = "H"
-				if !val {
-					output = "T"
-				}
-				fmt.Println(output)
-			} else {
-				output = "Heads"
-				if !val {
-					output = "Tails"
-				}
-				fmt.Println(output)
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runCoinFlip, cmd, args)
 	},
+}
+
+func runCoinFlip(cmd *cobra.Command, args []string) error {
+	output := "H"
+	val := gofakeit.Bool()
+	if short {
+		if !val {
+			output = "T"
+		}
+		fmt.Println(output)
+	} else {
+		output = "Heads"
+		if !val {
+			output = "Tails"
+		}
+		fmt.Println(output)
+	}
+	return nil
 }
 
 // genderCmd represents the coin-flip command
@@ -87,25 +90,27 @@ var genderCmd = &cobra.Command{
 	Short: "Generate a random gender(male/female only).",
 	Long: `Generates a random Gender value.
 Outcome will be either 'Male' or 'Female'.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		output := ""
-		for i := 0; i < count; i++ {
-			val := gofakeit.Bool()
-			if short {
-				output = "F"
-				if !val {
-					output = "M"
-				}
-				fmt.Println(output)
-			} else {
-				output = "Female"
-				if !val {
-					output = "Male"
-				}
-				fmt.Println(output)
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runGender, cmd, args)
 	},
+}
+
+func runGender(cmd *cobra.Command, args []string) error {
+	output := "F"
+	val := gofakeit.Bool()
+	if short {
+		if !val {
+			output = "M"
+		}
+		fmt.Println(output)
+	} else {
+		output = "Female"
+		if !val {
+			output = "Male"
+		}
+		fmt.Println(output)
+	}
+	return nil
 }
 
 func init() {

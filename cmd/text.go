@@ -35,14 +35,14 @@ var paragraphs int
 var textCmd = &cobra.Command{
 	Use:   "text",
 	Short: "Generate filler text based on Lorem Ipsum",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Paragraph(paragraphs, senetenes, words, "\n\n"))
-			if i < count-1 {
-				fmt.Println()
-			}
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runText, cmd, args)
 	},
+}
+
+func runText(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Paragraph(paragraphs, senetenes, words, "\n\n"))
+	return nil
 }
 
 func init() {

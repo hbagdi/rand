@@ -33,13 +33,16 @@ import (
 var geoLocationCmd = &cobra.Command{
 	Use:   "geo-location",
 	Short: "Generate a random Geographic coordinate location (lat,long)",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			lat := strconv.FormatFloat(gofakeit.Latitude(), 'f', 6, 64)
-			long := strconv.FormatFloat(gofakeit.Longitude(), 'f', 6, 64)
-			fmt.Println("(" + lat + "," + long + ")")
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runGeoLoc, cmd, args)
 	},
+}
+
+func runGeoLoc(cmd *cobra.Command, args []string) error {
+	lat := strconv.FormatFloat(gofakeit.Latitude(), 'f', 6, 64)
+	long := strconv.FormatFloat(gofakeit.Longitude(), 'f', 6, 64)
+	fmt.Println("(" + lat + "," + long + ")")
+	return nil
 }
 
 func init() {

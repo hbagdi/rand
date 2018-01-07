@@ -31,11 +31,14 @@ import (
 var uuidCmd = &cobra.Command{
 	Use:   "uuid",
 	Short: "Generate a random UUID(version 4)",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.UUID())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runUUID, cmd, args)
 	},
+}
+
+func runUUID(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.UUID())
+	return nil
 }
 
 func init() {

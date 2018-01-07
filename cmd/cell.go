@@ -31,13 +31,15 @@ import (
 var cellCmd = &cobra.Command{
 	Use:   "cell",
 	Short: "Generate a random cellular number",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Phone())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runCell, cmd, args)
 	},
 }
 
+func runCell(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Phone())
+	return nil
+}
 func init() {
 	rootCmd.AddCommand(cellCmd)
 }

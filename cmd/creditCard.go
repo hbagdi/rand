@@ -32,12 +32,15 @@ import (
 var creditCardCmd = &cobra.Command{
 	Use:   "credit-card",
 	Short: "Generate random credit card details",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			cc := gofakeit.CreditCard()
-			fmt.Printf("%s %s %s %s\n", cc.Type, strconv.Itoa(cc.Number), cc.Cvv, cc.Exp)
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runCreditCard, cmd, args)
 	},
+}
+
+func runCreditCard(cmd *cobra.Command, args []string) error {
+	cc := gofakeit.CreditCard()
+	fmt.Printf("%s %s %s %s\n", cc.Type, strconv.Itoa(cc.Number), cc.Cvv, cc.Exp)
+	return nil
 }
 
 func init() {

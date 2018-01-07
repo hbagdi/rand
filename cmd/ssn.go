@@ -31,11 +31,14 @@ import (
 var ssnCmd = &cobra.Command{
 	Use:   "ssn",
 	Short: "Generate a random US Social Security Number (SSN)",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.SSN())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runSSN, cmd, args)
 	},
+}
+
+func runSSN(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.SSN())
+	return nil
 }
 
 func init() {

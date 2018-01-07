@@ -33,11 +33,14 @@ var length = 16
 var passwordCmd = &cobra.Command{
 	Use:   "password",
 	Short: "Generate a random password",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Password(true, true, true, true, false, length))
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runPassword, cmd, args)
 	},
+}
+
+func runPassword(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Password(true, true, true, true, false, length))
+	return nil
 }
 
 func init() {

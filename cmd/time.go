@@ -31,11 +31,14 @@ import (
 var timeCmd = &cobra.Command{
 	Use:   "time",
 	Short: "Generate a random time",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Date())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runTime, cmd, args)
 	},
+}
+
+func runTime(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Date())
+	return nil
 }
 
 func init() {

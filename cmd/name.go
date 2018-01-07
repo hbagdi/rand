@@ -31,11 +31,14 @@ import (
 var nameCmd = &cobra.Command{
 	Use:   "name",
 	Short: "Generate a random (first and last) name for a person",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			fmt.Println(gofakeit.Name())
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runName, cmd, args)
 	},
+}
+
+func runName(cmd *cobra.Command, args []string) error {
+	fmt.Println(gofakeit.Name())
+	return nil
 }
 
 func init() {

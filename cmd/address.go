@@ -32,12 +32,15 @@ import (
 var addressCmd = &cobra.Command{
 	Use:   "address",
 	Short: "Generate a random address",
-	Run: func(cmd *cobra.Command, args []string) {
-		for i := 0; i < count; i++ {
-			address := gofakeit.Address()
-			fmt.Println(address.Address)
-		}
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runAddress, cmd, args)
 	},
+}
+
+func runAddress(cmd *cobra.Command, args []string) error {
+	address := gofakeit.Address()
+	fmt.Println(address.Address)
+	return nil
 }
 
 func init() {
