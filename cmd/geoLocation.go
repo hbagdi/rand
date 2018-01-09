@@ -29,6 +29,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	minLat  = -90.0
+	maxLat  = 90.0
+	minLong = -180.0
+	maxLong = 180.0
+)
+
 // geoLocationCmd represents the geo-location command
 var geoLocationCmd = &cobra.Command{
 	Use:   "geo-location",
@@ -39,12 +46,27 @@ var geoLocationCmd = &cobra.Command{
 }
 
 func runGeoLoc(cmd *cobra.Command, args []string) error {
-	lat := strconv.FormatFloat(gofakeit.Latitude(), 'f', 6, 64)
-	long := strconv.FormatFloat(gofakeit.Longitude(), 'f', 6, 64)
-	fmt.Println("(" + lat + "," + long + ")")
+	lat, err := gofakeit.LatitudeInRange(minLat, maxLat)
+	if err != nil {
+		return err
+	}
+
+	long, err := gofakeit.LongitudeInRange(minLong, maxLong)
+	if err != nil {
+		return err
+	}
+
+	latString := strconv.FormatFloat(lat, 'f', 6, 64)
+	longString := strconv.FormatFloat(long, 'f', 6, 64)
+	fmt.Println("(" + latString + "," + longString + ")")
 	return nil
 }
 
 func init() {
+	geoLocationCmd.Flags().Float64Var(&minLat, "min-lat", minLat, "minimum of latitude range")
+	geoLocationCmd.Flags().Float64Var(&maxLat, "max-lat", maxLat, "maximum of latitude range")
+	geoLocationCmd.Flags().Float64Var(&minLong, "min-long", minLong, "minimum of longitude range")
+	geoLocationCmd.Flags().Float64Var(&maxLong, "max-long", maxLong, "maximum of longitude range")
+
 	rootCmd.AddCommand(geoLocationCmd)
 }
