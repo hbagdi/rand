@@ -1,0 +1,63 @@
+// Copyright © 2018 Harry Bagdi <harry.bagdi@gmail.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+package cmd
+
+import (
+	"errors"
+	"fmt"
+	"net/http"
+
+	"github.com/spf13/cobra"
+)
+
+var c http.Client
+
+// imageCmd represents the image command
+var imageCmd = &cobra.Command{
+	Use:   "image",
+	Short: "Generate a URL pointing to a random image",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return repeatFunc(runImage, cmd, args)
+	},
+}
+
+func runImage(cmd *cobra.Command, args []string) error {
+	resp, err := c.Get("https://source.unsplash.com/random")
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != 302 {
+		return errors.New("unexpected error from https://source.unsplash.com")
+	}
+	fmt.Println(resp.Header.Get("Location"))
+	return nil
+}
+
+func init() {
+	c = http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	rootCmd.AddCommand(imageCmd)
+}
