@@ -76,7 +76,7 @@ func runTemplate(cmd *cobra.Command, args []string) error {
 	}
 	return repeatFunc(
 		func(cmd *cobra.Command, args []string) error {
-			fmt.Println(gofakeit.Generate(string(content)))
+			fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Generate(string(content)))
 			return nil
 		}, cmd, args)
 }

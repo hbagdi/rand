@@ -37,7 +37,7 @@ var uuidCmd = &cobra.Command{
 }
 
 func runUUID(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.UUID())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.UUID())
 	return nil
 }
 

@@ -39,7 +39,7 @@ var addressCmd = &cobra.Command{
 
 func runAddress(cmd *cobra.Command, args []string) error {
 	address := gofakeit.Address()
-	fmt.Println(address.Address)
+	fmt.Fprintln(cmd.OutOrStdout(), address.Address)
 	return nil
 }
 

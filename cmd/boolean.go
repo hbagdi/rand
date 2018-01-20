@@ -48,9 +48,9 @@ func runBoolean(cmd *cobra.Command, args []string) error {
 		if !val {
 			output = "F"
 		}
-		fmt.Println(output)
+		fmt.Fprintln(cmd.OutOrStdout(), output)
 	} else {
-		fmt.Println(val)
+		fmt.Fprintln(cmd.OutOrStdout(), val)
 	}
 	return nil
 }
@@ -73,13 +73,13 @@ func runCoinFlip(cmd *cobra.Command, args []string) error {
 		if !val {
 			output = "T"
 		}
-		fmt.Println(output)
+		fmt.Fprintln(cmd.OutOrStdout(), output)
 	} else {
 		output = "Heads"
 		if !val {
 			output = "Tails"
 		}
-		fmt.Println(output)
+		fmt.Fprintln(cmd.OutOrStdout(), output)
 	}
 	return nil
 }
@@ -102,13 +102,13 @@ func runGender(cmd *cobra.Command, args []string) error {
 		if !val {
 			output = "M"
 		}
-		fmt.Println(output)
+		fmt.Fprintln(cmd.OutOrStdout(), output)
 	} else {
 		output = "Female"
 		if !val {
 			output = "Male"
 		}
-		fmt.Println(output)
+		fmt.Fprintln(cmd.OutOrStdout(), output)
 	}
 	return nil
 }

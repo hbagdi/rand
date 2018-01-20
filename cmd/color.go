@@ -53,13 +53,13 @@ func runColor(cmd *cobra.Command, args []string) error {
 
 	}
 	if hex {
-		fmt.Println(gofakeit.HexColor())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.HexColor())
 	} else if rgb {
 		rgb := gofakeit.RGBColor()
-		fmt.Println("rgb(" + strconv.Itoa(rgb[0]) + "," +
-			strconv.Itoa(rgb[1]) + "," + strconv.Itoa(rgb[2]) + ")")
+		fmt.Fprintln(cmd.OutOrStdout(), "rgb("+strconv.Itoa(rgb[0])+","+
+			strconv.Itoa(rgb[1])+","+strconv.Itoa(rgb[2])+")")
 	} else {
-		fmt.Println(gofakeit.Color())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Color())
 	}
 	return nil
 }

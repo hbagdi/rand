@@ -37,7 +37,7 @@ var ssnCmd = &cobra.Command{
 }
 
 func runSSN(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.SSN())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.SSN())
 	return nil
 }
 

@@ -50,9 +50,9 @@ Use the following flag for IPv6`,
 
 func runIP(cmd *cobra.Command, args []string) error {
 	if v6 {
-		fmt.Println(gofakeit.IPv6Address())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.IPv6Address())
 	} else {
-		fmt.Println(gofakeit.IPv4Address())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.IPv4Address())
 	}
 	return nil
 }
@@ -70,9 +70,9 @@ var domainCmd = &cobra.Command{
 
 func runDomain(cmd *cobra.Command, args []string) error {
 	if suffixOnly {
-		fmt.Println(gofakeit.DomainSuffix())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.DomainSuffix())
 	} else {
-		fmt.Println(gofakeit.DomainName())
+		fmt.Fprintln(cmd.OutOrStdout(), gofakeit.DomainName())
 	}
 	return nil
 }
@@ -87,7 +87,7 @@ var httpStatusCmd = &cobra.Command{
 }
 
 func runHTTPStatus(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.StatusCode())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.StatusCode())
 	return nil
 }
 
@@ -101,7 +101,7 @@ var httpMethodCmd = &cobra.Command{
 }
 
 func runHTTPMethod(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.HTTPMethod())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.HTTPMethod())
 	return nil
 }
 
@@ -115,7 +115,7 @@ var userAgentCmd = &cobra.Command{
 }
 
 func runUserAgent(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.UserAgent())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.UserAgent())
 	return nil
 }
 

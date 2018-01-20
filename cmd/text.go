@@ -41,7 +41,7 @@ var textCmd = &cobra.Command{
 }
 
 func runText(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Paragraph(paragraphs, senetenes, words, "\n\n"))
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Paragraph(paragraphs, senetenes, words, "\n\n"))
 	return nil
 }
 

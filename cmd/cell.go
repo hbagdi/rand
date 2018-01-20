@@ -37,7 +37,7 @@ var cellCmd = &cobra.Command{
 }
 
 func runCell(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Phone())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Phone())
 	return nil
 }
 func init() {

@@ -45,7 +45,7 @@ func runCurrency(cmd *cobra.Command, args []string) error {
 	if info {
 		output += " " + currency.Long
 	}
-	fmt.Println(output)
+	fmt.Fprintln(cmd.OutOrStdout(), output)
 	return nil
 }
 

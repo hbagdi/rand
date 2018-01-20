@@ -37,7 +37,7 @@ var nameCmd = &cobra.Command{
 }
 
 func runName(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Name())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Name())
 	return nil
 }
 

@@ -37,7 +37,7 @@ var timeCmd = &cobra.Command{
 }
 
 func runTime(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Date())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Date())
 	return nil
 }
 

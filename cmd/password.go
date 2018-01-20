@@ -39,7 +39,7 @@ var passwordCmd = &cobra.Command{
 }
 
 func runPassword(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Password(true, true, true, true, false, length))
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Password(true, true, true, true, false, length))
 	return nil
 }
 

@@ -42,7 +42,7 @@ var numberCmd = &cobra.Command{
 }
 
 func runNumber(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Number(min, max))
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Number(min, max))
 	return nil
 }
 

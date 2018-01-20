@@ -21,6 +21,7 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 
@@ -33,6 +34,7 @@ const (
 )
 
 var count int
+var out *bufio.Writer
 
 type runFunc func(cmd *cobra.Command, args []string) error
 
@@ -55,7 +57,7 @@ var rootCmd = &cobra.Command{
 	// examples and usage of using your application. For example:
 	Run: func(cmd *cobra.Command, args []string) {
 		if version {
-			fmt.Println(VERSION)
+			fmt.Fprintln(cmd.OutOrStdout(), VERSION)
 		} else {
 			cmd.Help()
 		}
@@ -65,12 +67,15 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	defer out.Flush()
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }
 
 func init() {
+	out = bufio.NewWriter(os.Stdout)
+	rootCmd.SetOutput(out)
 	rootCmd.PersistentFlags().IntVarP(&count, "count", "c", 1, "repeat the action")
 	rootCmd.Flags().BoolVarP(&version, "version", "v", false, "Display the current version")
 }

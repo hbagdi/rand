@@ -48,7 +48,7 @@ func runImage(cmd *cobra.Command, args []string) error {
 	if resp.StatusCode != 302 {
 		return errors.New("unexpected error from https://source.unsplash.com")
 	}
-	fmt.Println(resp.Header.Get("Location"))
+	fmt.Fprintln(cmd.OutOrStdout(), resp.Header.Get("Location"))
 	return nil
 }
 

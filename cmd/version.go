@@ -33,7 +33,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Display the version of rand",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(VERSION)
+		fmt.Fprintln(cmd.OutOrStdout(), VERSION)
 	},
 }
 

@@ -37,7 +37,7 @@ var emailCmd = &cobra.Command{
 }
 
 func runEmail(cmd *cobra.Command, args []string) error {
-	fmt.Println(gofakeit.Email())
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Email())
 	return nil
 }
 

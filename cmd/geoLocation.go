@@ -58,7 +58,7 @@ func runGeoLoc(cmd *cobra.Command, args []string) error {
 
 	latString := strconv.FormatFloat(lat, 'f', 6, 64)
 	longString := strconv.FormatFloat(long, 'f', 6, 64)
-	fmt.Println("(" + latString + "," + longString + ")")
+	fmt.Fprintln(cmd.OutOrStdout(), "("+latString+","+longString+")")
 	return nil
 }
 
