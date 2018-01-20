@@ -67,10 +67,14 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	var err error
+	defer func() {
+		if err != nil {
+			os.Exit(1)
+		}
+	}()
 	defer out.Flush()
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
-	}
+	err = rootCmd.Execute()
 }
 
 func init() {
