@@ -21,39 +21,13 @@
 package cmd
 
 import (
-	"bufio"
-	"bytes"
-	"os"
-	"strings"
 	"testing"
 
+	"github.com/brianvoe/gofakeit"
 	"github.com/stretchr/testify/assert"
 )
 
-var (
-	testOutBuffer bytes.Buffer
-	testOut       *bufio.Writer
-)
-
-func TestMain(m *testing.M) {
-	testOut = bufio.NewWriter(&testOutBuffer)
-	rootCmd.SetOutput(testOut)
-	os.Exit(m.Run())
-}
-
-// testExecute is same as Execute() for testing purposes.
-// It writes output into a buffer rather than stdout
-// and also returns error (if any) from rootCmd
-func testExecute(args string) (string, error) {
-	count = 1
-	testOutBuffer.Reset()
-	rootCmd.SetArgs(strings.Split(args, " "))
-	err := rootCmd.Execute()
-	testOut.Flush()
-	return testOutBuffer.String(), err
-}
-
-func TestRootCmd(t *testing.T) {
+func TestSSNCmd(t *testing.T) {
 	tests := []struct {
 		Name      string
 		Input     string
@@ -62,51 +36,21 @@ func TestRootCmd(t *testing.T) {
 		IsErr     bool
 	}{
 		{
-			Name:      "basic",
-			Input:     "",
-			SubString: rootCmd.Short,
-			IsErr:     false,
-		},
-		{
-			Name:   "-v flag",
-			Input:  "-v",
-			Output: VERSION + "\n",
+			Name:   "basic",
+			Input:  "ssn",
+			Output: "885-347-6827\n",
 			IsErr:  false,
 		},
 		{
-			Name:   "--version flag",
-			Input:  "--version",
-			Output: VERSION + "\n",
+			Name:   "repeat",
+			Input:  "ssn -c 2",
+			Output: "885-347-6827\n123-450-8582\n",
 			IsErr:  false,
 		},
 		{
-			Name:      "-h flag",
-			Input:     "-h",
-			SubString: rootCmd.Short,
-			IsErr:     false,
-		},
-		{
-			Name:      "--help flag",
-			Input:     "--help",
-			SubString: rootCmd.Short,
-			IsErr:     false,
-		},
-		{
-			Name:      "-c flag",
-			Input:     "-c 2",
-			SubString: rootCmd.Short,
-			IsErr:     false,
-		},
-		{
-			Name:      "non-existing flag",
-			Input:     "--random",
-			SubString: "Error: unknown flag: --random",
-			IsErr:     true,
-		},
-		{
-			Name:      "non-existing command",
-			Input:     "random",
-			SubString: `Error: unknown command "random"`,
+			Name:      "unknown flag",
+			Input:     "ssn --unknown ",
+			SubString: "Error: unknown flag: --unknown",
 			IsErr:     true,
 		},
 	}
@@ -114,6 +58,7 @@ func TestRootCmd(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {
 			a := assert.New(t)
+			gofakeit.Seed(42)
 			out, err := testExecute(test.Input)
 			if test.Output != "" {
 				a.Equal(test.Output, out)
