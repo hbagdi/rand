@@ -23,6 +23,7 @@ package cmd
 import (
 	"bufio"
 	"bytes"
+	"os"
 	"strings"
 	"testing"
 
@@ -37,7 +38,7 @@ var (
 func TestMain(m *testing.M) {
 	testOut = bufio.NewWriter(&testOutBuffer)
 	rootCmd.SetOutput(testOut)
-	m.Run()
+	os.Exit(m.Run())
 }
 
 func TestVersionFlag(t *testing.T) {
