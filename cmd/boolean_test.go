@@ -99,13 +99,13 @@ func TestCoinFlipCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "coin-flip",
-			Output: "Heads\n",
+			Output: "heads\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
 			Input:  "coin-flip -c 3",
-			Output: "Heads\nHeads\nTails\n",
+			Output: "heads\nheads\ntails\n",
 			IsErr:  false,
 		},
 		{
@@ -160,13 +160,13 @@ func TestGenderCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "gender",
-			Output: "Female\n",
+			Output: "female\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
 			Input:  "gender -c 3",
-			Output: "Female\nFemale\nMale\n",
+			Output: "female\nfemale\nmale\n",
 			IsErr:  false,
 		},
 		{

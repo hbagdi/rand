@@ -60,7 +60,7 @@ var coinFlipCmd = &cobra.Command{
 	Use:   "coin-flip",
 	Short: "Generate an outcome of a coin flip.",
 	Long: `Generates a random Boolean value.
-Outcome will be either 'Heads' or 'Tails'.`,
+Outcome will be either 'heads' or 'tails'.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return repeatFunc(runCoinFlip, cmd, args)
 	},
@@ -75,9 +75,9 @@ func runCoinFlip(cmd *cobra.Command, args []string) error {
 		}
 		fmt.Fprintln(cmd.OutOrStdout(), output)
 	} else {
-		output = "Heads"
+		output = "heads"
 		if !val {
-			output = "Tails"
+			output = "tails"
 		}
 		fmt.Fprintln(cmd.OutOrStdout(), output)
 	}
@@ -89,7 +89,7 @@ var genderCmd = &cobra.Command{
 	Use:   "gender",
 	Short: "Generate a random gender(male/female only).",
 	Long: `Generates a random Gender value.
-Outcome will be either 'Male' or 'Female'.`,
+Outcome will be either 'male' or 'female'.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return repeatFunc(runGender, cmd, args)
 	},
@@ -104,9 +104,9 @@ func runGender(cmd *cobra.Command, args []string) error {
 		}
 		fmt.Fprintln(cmd.OutOrStdout(), output)
 	} else {
-		output = "Female"
+		output = "female"
 		if !val {
-			output = "Male"
+			output = "male"
 		}
 		fmt.Fprintln(cmd.OutOrStdout(), output)
 	}
