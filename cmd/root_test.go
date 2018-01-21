@@ -41,13 +41,6 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestVersionFlag(t *testing.T) {
-	a := assert.New(t)
-	out, err := testExecute("-v")
-	a.Nil(err)
-	a.Equal(VERSION+"\n", out)
-}
-
 // testExecute is same as Execute() for testing purposes.
 // It writes output into a buffer rather than stdout
 // and also returns error (if any) from rootCmd
@@ -57,4 +50,75 @@ func testExecute(args string) (string, error) {
 	err := rootCmd.Execute()
 	testOut.Flush()
 	return testOutBuffer.String(), err
+}
+
+func TestRootCmd(t *testing.T) {
+	tests := []struct {
+		Name      string
+		Input     string
+		Output    string
+		SubString string
+		IsErr     bool
+	}{
+		{
+			Name:      "basic",
+			Input:     "",
+			SubString: rootCmd.Short,
+			IsErr:     false,
+		},
+		{
+			Name:   "-v flag",
+			Input:  "-v",
+			Output: VERSION + "\n",
+			IsErr:  false,
+		},
+		{
+			Name:   "--version flag",
+			Input:  "--version",
+			Output: VERSION + "\n",
+			IsErr:  false,
+		},
+		{
+			Name:      "-h flag",
+			Input:     "-h",
+			SubString: rootCmd.Short,
+			IsErr:     false,
+		},
+		{
+			Name:      "--help flag",
+			Input:     "--help",
+			SubString: rootCmd.Short,
+			IsErr:     false,
+		},
+		{
+			Name:      "non-existing flag",
+			Input:     "--random",
+			SubString: "Error: unknown flag: --random",
+			IsErr:     true,
+		},
+		{
+			Name:      "repeat",
+			Input:     "-c 2",
+			SubString: rootCmd.Short,
+			IsErr:     false,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.Name, func(t *testing.T) {
+			a := assert.New(t)
+			out, err := testExecute(test.Input)
+			if test.Output != "" {
+				a.Equal(test.Output, out)
+			}
+			if test.SubString != "" {
+				a.Contains(out, test.SubString)
+			}
+			if test.IsErr {
+				a.NotNil(err)
+			} else {
+				a.Nil(err)
+			}
+		})
+	}
 }
