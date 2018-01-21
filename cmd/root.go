@@ -34,7 +34,6 @@ const (
 )
 
 var count int
-var out *bufio.Writer
 
 type runFunc func(cmd *cobra.Command, args []string) error
 
@@ -68,18 +67,16 @@ var rootCmd = &cobra.Command{
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	var err error
-	defer func() {
-		if err != nil {
-			os.Exit(1)
-		}
-	}()
-	defer out.Flush()
+	out := bufio.NewWriter(os.Stdout)
+	rootCmd.SetOutput(out)
 	err = rootCmd.Execute()
+	out.Flush()
+	if err != nil {
+		os.Exit(1)
+	}
 }
 
 func init() {
-	out = bufio.NewWriter(os.Stdout)
-	rootCmd.SetOutput(out)
 	rootCmd.PersistentFlags().IntVarP(&count, "count", "c", 1, "repeat the action")
 	rootCmd.Flags().BoolVarP(&version, "version", "v", false, "Display the current version")
 }
