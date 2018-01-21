@@ -24,7 +24,3 @@
 [[constraint]]
   name = "github.com/brianvoe/gofakeit"
   version = "3.1.0"
-
-[[constraint]]
-  name = "github.com/urfave/cli"
-  version = "1.20.0"

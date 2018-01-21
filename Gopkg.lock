@@ -4,14 +4,26 @@
 [[projects]]
   name = "github.com/brianvoe/gofakeit"
   packages = [".","data"]
-  revision = "c8708312b43b8ee0513c476c88308f16b0eeacd1"
-  version = "v3.5.0"
+  revision = "09d21ec27e49141514892166cd4a34aaf85f30bc"
+  version = "v3.6.0"
+
+[[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
+
+[[projects]]
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
 
 [[projects]]
   name = "github.com/spf13/cobra"
@@ -25,9 +37,15 @@
   revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
   version = "v1.0.0"
 
+[[projects]]
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  revision = "b91bfb9ebec76498946beb6af7c0230c7cc7ba6c"
+  version = "v1.2.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0465b850f94cc5e9cbe66e4a7b6acfd9412236c6c1e7458a2249221de5d1147e"
+  inputs-digest = "4065791dd0326bfa233318ec1b2854258abccf0d250d806bdd6a5a71032c4f74"
   solver-name = "gps-cdcl"
   solver-version = 1
