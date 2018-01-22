@@ -21,46 +21,11 @@
 package cmd
 
 import (
-	"bufio"
-	"bytes"
-	"os"
-	"strings"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
-
-var (
-	testOutBuffer bytes.Buffer
-	testOut       *bufio.Writer
-)
-
-func TestMain(m *testing.M) {
-	testOut = bufio.NewWriter(&testOutBuffer)
-	rootCmd.SetOutput(testOut)
-	os.Exit(m.Run())
-}
-
-// testExecute is same as Execute() for testing purposes.
-// It writes output into a buffer rather than stdout
-// and also returns error (if any) from rootCmd
-func testExecute(args string) (string, error) {
-	count = 1
-	testOutBuffer.Reset()
-	rootCmd.SetArgs(strings.Split(args, " "))
-	err := rootCmd.Execute()
-	testOut.Flush()
-	return testOutBuffer.String(), err
-}
 
 func TestRootCmd(t *testing.T) {
-	tests := []struct {
-		Name      string
-		Input     string
-		Output    string
-		SubString string
-		IsErr     bool
-	}{
+	tests := []testItem{
 		{
 			Name:      "basic",
 			Input:     "",
@@ -110,22 +75,5 @@ func TestRootCmd(t *testing.T) {
 			IsErr:     true,
 		},
 	}
-
-	for _, test := range tests {
-		t.Run(test.Name, func(t *testing.T) {
-			a := assert.New(t)
-			out, err := testExecute(test.Input)
-			if test.Output != "" {
-				a.Equal(test.Output, out)
-			}
-			if test.SubString != "" {
-				a.Contains(out, test.SubString)
-			}
-			if test.IsErr {
-				a.NotNil(err)
-			} else {
-				a.Nil(err)
-			}
-		})
-	}
+	runTestTable(t, tests)
 }
