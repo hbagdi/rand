@@ -24,41 +24,27 @@ import (
 	"testing"
 )
 
-func TestCurrencyCmd(t *testing.T) {
+func TestAddressCmd(t *testing.T) {
 	tests := []testItem{
 		{
-			Name:   "basic",
-			Input:  "currency",
-			Output: "AMD\n",
-			IsErr:  false,
+			Name:  "basic",
+			Input: "address",
+			Output: "534 Harborburgh, " +
+				"New Kreiger, New Jersey 34508-5827\n",
+			IsErr: false,
 		},
 		{
-			Name:   "repeat",
-			Input:  "currency -c 2",
-			Output: "AMD\nSRD\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "--long flag",
-			Input:  "currency --long",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l flag",
-			Input:  "currency -l",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l -c flag",
-			Input:  "currency -l -c 2",
-			Output: "AMD Armenia Dram\nSRD Suriname Dollar\n",
-			IsErr:  false,
+			Name:  "repeat",
+			Input: "address -c 2",
+			Output: "534 Harborburgh, " +
+				"New Kreiger, New Jersey 34508-5827\n" +
+				"514 Port Valleysport, " +
+				"Bechtelartown, Wisconsin 10557\n",
+			IsErr: false,
 		},
 		{
 			Name:      "unknown flag",
-			Input:     "currency --unknown ",
+			Input:     "address --unknown ",
 			SubString: "Error: unknown flag: --unknown",
 			IsErr:     true,
 		},

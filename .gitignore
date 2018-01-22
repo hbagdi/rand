@@ -3,6 +3,9 @@
 *.a
 *.so
 
+# Tests
+cover.out
+cover.html
 # Folders
 _obj
 vendor

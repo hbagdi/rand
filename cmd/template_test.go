@@ -24,41 +24,35 @@ import (
 	"testing"
 )
 
-func TestCurrencyCmd(t *testing.T) {
+func TestTemplateCmd(t *testing.T) {
 	tests := []testItem{
 		{
+			Name:      "empty",
+			Input:     "template",
+			SubString: "Error: Please provide a template via --template or --file",
+			IsErr:     true,
+		},
+		{
 			Name:   "basic",
-			Input:  "currency",
-			Output: "AMD\n",
+			Input:  `template -t {person.first}###??`,
+			Output: "Jeromy853pt\n",
 			IsErr:  false,
 		},
 		{
-			Name:   "repeat",
-			Input:  "currency -c 2",
-			Output: "AMD\nSRD\n",
-			IsErr:  false,
+			Name:      "file",
+			Input:     `template -f nofile.txt`,
+			SubString: "Error: open nofile.txt: no such file or directory\n",
+			IsErr:     true,
 		},
 		{
-			Name:   "--long flag",
-			Input:  "currency --long",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l flag",
-			Input:  "currency -l",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l -c flag",
-			Input:  "currency -l -c 2",
-			Output: "AMD Armenia Dram\nSRD Suriname Dollar\n",
+			Name:   "file",
+			Input:  `template -f testData/template.txt`,
+			Output: "Greenfelder\n",
 			IsErr:  false,
 		},
 		{
 			Name:      "unknown flag",
-			Input:     "currency --unknown ",
+			Input:     "text --unknown ",
 			SubString: "Error: unknown flag: --unknown",
 			IsErr:     true,
 		},

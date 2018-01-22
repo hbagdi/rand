@@ -80,12 +80,24 @@ func runTestTable(t *testing.T, tests []testItem) {
 			} else {
 				a.Nil(err)
 			}
-			// reset flags to default
-			short = false
-			count = 1
-			hex = false
-			rgb = false
-			v6 = false
+			resetGlobals()
 		})
 	}
+}
+
+func resetGlobals() {
+	short = false
+	count = 1
+	hex = false
+	rgb = false
+	v6 = false
+	paragraphs = 1
+	sentences = 1
+	words = 42
+	template = ""
+	templateFile = ""
+	minLat = -90
+	maxLat = 90
+	minLong = -180
+	maxLong = 180
 }

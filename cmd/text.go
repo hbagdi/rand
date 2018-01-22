@@ -28,7 +28,7 @@ import (
 )
 
 var words int
-var senetenes int
+var sentences int
 var paragraphs int
 
 // textCmd represents the text command
@@ -41,13 +41,17 @@ var textCmd = &cobra.Command{
 }
 
 func runText(cmd *cobra.Command, args []string) error {
-	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Paragraph(paragraphs, senetenes, words, "\n\n"))
+	fmt.Fprintln(cmd.OutOrStdout(), gofakeit.Paragraph(paragraphs,
+		sentences, words, "\n\n"))
 	return nil
 }
 
 func init() {
-	textCmd.Flags().IntVarP(&words, "words", "w", 42, "Number of words per sentence")
-	textCmd.Flags().IntVarP(&senetenes, "sentences", "s", 1, "Number of senetences per paragraph")
-	textCmd.Flags().IntVarP(&paragraphs, "paragraphs", "p", 1, "Number of paragraphs in the output")
+	textCmd.Flags().IntVarP(&words, "words", "w", 42,
+		"Number of words per sentence")
+	textCmd.Flags().IntVarP(&sentences, "sentences", "s", 1,
+		"Number of senetences per paragraph")
+	textCmd.Flags().IntVarP(&paragraphs, "paragraphs", "p", 1,
+		"Number of paragraphs in the output")
 	rootCmd.AddCommand(textCmd)
 }

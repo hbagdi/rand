@@ -24,41 +24,23 @@ import (
 	"testing"
 )
 
-func TestCurrencyCmd(t *testing.T) {
+func TestImageCmd(t *testing.T) {
 	tests := []testItem{
 		{
-			Name:   "basic",
-			Input:  "currency",
-			Output: "AMD\n",
-			IsErr:  false,
+			Name:      "basic",
+			Input:     "image",
+			SubString: "https://images.unsplash.com",
+			IsErr:     false,
 		},
 		{
-			Name:   "repeat",
-			Input:  "currency -c 2",
-			Output: "AMD\nSRD\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "--long flag",
-			Input:  "currency --long",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l flag",
-			Input:  "currency -l",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l -c flag",
-			Input:  "currency -l -c 2",
-			Output: "AMD Armenia Dram\nSRD Suriname Dollar\n",
-			IsErr:  false,
+			Name:      "repeat",
+			Input:     "image -c 2",
+			SubString: "https://images.unsplash.com",
+			IsErr:     false,
 		},
 		{
 			Name:      "unknown flag",
-			Input:     "currency --unknown ",
+			Input:     "image --unknown ",
 			SubString: "Error: unknown flag: --unknown",
 			IsErr:     true,
 		},

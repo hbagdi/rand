@@ -24,41 +24,23 @@ import (
 	"testing"
 )
 
-func TestCurrencyCmd(t *testing.T) {
+func TestNumberCmd(t *testing.T) {
 	tests := []testItem{
 		{
 			Name:   "basic",
-			Input:  "currency",
-			Output: "AMD\n",
+			Input:  "number",
+			Output: "377457747\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
-			Input:  "currency -c 2",
-			Output: "AMD\nSRD\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "--long flag",
-			Input:  "currency --long",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l flag",
-			Input:  "currency -l",
-			Output: "AMD Armenia Dram\n",
-			IsErr:  false,
-		},
-		{
-			Name:   "-l -c flag",
-			Input:  "currency -l -c 2",
-			Output: "AMD Armenia Dram\nSRD Suriname Dollar\n",
+			Input:  "number -c 2",
+			Output: "377457747\n532387611\n",
 			IsErr:  false,
 		},
 		{
 			Name:      "unknown flag",
-			Input:     "currency --unknown ",
+			Input:     "number --unknown ",
 			SubString: "Error: unknown flag: --unknown",
 			IsErr:     true,
 		},

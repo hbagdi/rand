@@ -33,10 +33,28 @@ func TestGeoLocationCmd(t *testing.T) {
 			IsErr:  false,
 		},
 		{
+			Name:   "in range",
+			Input:  "geo-location --min-lat 10 --max-lat 42",
+			Output: "(21.936908,-156.239821)\n",
+			IsErr:  false,
+		},
+		{
 			Name:   "repeat",
 			Input:  "geo-location -c 2",
 			Output: "(-22.854895,-156.239821)\n(18.736893,-104.825267)\n",
 			IsErr:  false,
+		},
+		{
+			Name:      "--min-lat invalid value",
+			Input:     "geo-location --min-lat -200",
+			SubString: "Error: input range is invalid\n",
+			IsErr:     true,
+		},
+		{
+			Name:      "--max-long invalid value",
+			Input:     "geo-location --max-long 200",
+			SubString: "Error: input range is invalid\n",
+			IsErr:     true,
 		},
 		{
 			Name:      "unknown flag",
