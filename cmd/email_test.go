@@ -1,4 +1,4 @@
-// Copyright © 2017 Harry Bagdi <harry.bagdi@gmail.com>
+// Copyright © 2018 Harry Bagdi <harry.bagdi@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +21,30 @@
 package cmd
 
 import (
-	"fmt"
-	"strconv"
-
-	"github.com/brianvoe/gofakeit"
-	"github.com/spf13/cobra"
+	"testing"
 )
 
-// creditCardCmd represents the creditCard command
-var creditCardCmd = &cobra.Command{
-	Use:   "credit-card",
-	Short: "Generate random credit card details",
-	RunE: func(cmd *cobra.Command, args []string) error {
-		return repeatFunc(runCreditCard, cmd, args)
-	},
-}
+func TestEmailCmd(t *testing.T) {
+	tests := []testItem{
+		{
+			Name:   "basic",
+			Input:  "email",
+			Output: "jeromyschmeler@ziemann.biz\n",
+			IsErr:  false,
+		},
+		{
+			Name:   "repeat",
+			Input:  "email -c 2",
+			Output: "jeromyschmeler@ziemann.biz\njackyborer@pacocha.net\n",
+			IsErr:  false,
+		},
+		{
+			Name:      "unknown flag",
+			Input:     "email --unknown ",
+			SubString: "Error: unknown flag: --unknown",
+			IsErr:     true,
+		},
+	}
 
-func runCreditCard(cmd *cobra.Command, args []string) error {
-	cc := gofakeit.CreditCard()
-	fmt.Fprintf(cmd.OutOrStdout(), "%s %s %s %s\n",
-		cc.Type, strconv.Itoa(cc.Number), cc.Cvv, cc.Exp)
-	return nil
-}
-
-func init() {
-	rootCmd.AddCommand(creditCardCmd)
+	runTestTable(t, tests)
 }

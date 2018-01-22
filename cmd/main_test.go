@@ -83,6 +83,9 @@ func runTestTable(t *testing.T, tests []testItem) {
 			// reset flags to default
 			short = false
 			count = 1
+			hex = false
+			rgb = false
+			v6 = false
 		})
 	}
 }
