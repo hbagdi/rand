@@ -3,9 +3,12 @@
 
 [[projects]]
   name = "github.com/brianvoe/gofakeit"
-  packages = [".","data"]
-  revision = "09d21ec27e49141514892166cd4a34aaf85f30bc"
-  version = "v3.6.0"
+  packages = [
+    ".",
+    "data"
+  ]
+  revision = "15fea6ebad2e2db0f8459f9c777cb06de4978105"
+  version = "v3.7.0"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -40,8 +43,8 @@
 [[projects]]
   name = "github.com/stretchr/testify"
   packages = ["assert"]
-  revision = "b91bfb9ebec76498946beb6af7c0230c7cc7ba6c"
-  version = "v1.2.0"
+  revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
+  version = "v1.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
