@@ -7,8 +7,8 @@
     ".",
     "data"
   ]
-  revision = "15fea6ebad2e2db0f8459f9c777cb06de4978105"
-  version = "v3.7.0"
+  revision = "5e6d50fd5da749baeac175d33eb4bb1fbc5bb050"
+  version = "v3.11.0"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -31,14 +31,14 @@
 [[projects]]
   name = "github.com/spf13/cobra"
   packages = ["."]
-  revision = "7b2c5ac9fc04fc5efafb60700713d4fa609b777b"
-  version = "v0.0.1"
+  revision = "a1f051bc3eba734da4772d60e2d677f47cf93ef4"
+  version = "v0.0.2"
 
 [[projects]]
   name = "github.com/spf13/pflag"
   packages = ["."]
-  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
-  version = "v1.0.0"
+  revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
+  version = "v1.0.1"
 
 [[projects]]
   name = "github.com/stretchr/testify"
