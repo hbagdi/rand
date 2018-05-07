@@ -29,13 +29,13 @@ func TestCellCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "cell",
-			Output: "(853)476-8271\n",
+			Output: "8853476827\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
 			Input:  "cell -c 2",
-			Output: "(853)476-8271\n345.085.8276\n",
+			Output: "8853476827\n1234508582\n",
 			IsErr:  false,
 		},
 		{

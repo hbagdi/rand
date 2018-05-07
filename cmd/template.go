@@ -39,7 +39,7 @@ var categoriesHelp string
 
 func initCategoriesHelp() {
 	var p string
-	categories := gofakeit.Catagories()
+	categories := gofakeit.Categories()
 	var keys []string
 	for k := range categories {
 		keys = append(keys, k)
