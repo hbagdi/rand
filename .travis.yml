@@ -4,11 +4,11 @@ go:
 
 before_script:
   - GO_FILES=$(find . -iname '*.go' -type f | grep -v /vendor/)
-  - go get github.com/golang/lint/golint
+  - go get golang.org/x/lint/golint
   - go get honnef.co/go/tools/cmd/megacheck
   - go get github.com/fzipp/gocyclo
   - go get -u github.com/golang/dep/cmd/dep
-  - dep ensure
+  - dep ensure -v -vendor-only
 
 script:
   - test -z $(gofmt -s -l $GO_FILES)
