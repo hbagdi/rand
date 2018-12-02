@@ -27,3 +27,8 @@ checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ .Tag }}"
+archive:
+  files:
+    - LICENSE
+    - README.md
+    - CHANGELOG.md
