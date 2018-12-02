@@ -29,13 +29,13 @@ func TestPasswordCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "password",
-			Output: "LE4C_4#032mcXPmR\n",
+			Output: "2awe0Q+enXQ9laVH\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
 			Input:  "password -c 2",
-			Output: "LE4C_4#032mcXPmR\nhsS@nZXE?htbS-U&\n",
+			Output: "2awe0Q+enXQ9laVH\nRhq%zp!S&1toiYrh\n",
 			IsErr:  false,
 		},
 		{

@@ -30,16 +30,15 @@ func TestAddressCmd(t *testing.T) {
 			Name:  "basic",
 			Input: "address",
 			Output: "534 Harborburgh, " +
-				"New Kreiger, New Jersey 34508-5827\n",
+				"New Kreiger, New Jersey 34508\n",
 			IsErr: false,
 		},
 		{
 			Name:  "repeat",
 			Input: "address -c 2",
 			Output: "534 Harborburgh, " +
-				"New Kreiger, New Jersey 34508-5827\n" +
-				"514 Port Valleysport, " +
-				"Bechtelartown, Wisconsin 10557\n",
+				"New Kreiger, New Jersey 34508\n" +
+				"10785 West Ridgesville, Anabelleland, Hawaii 40105\n",
 			IsErr: false,
 		},
 		{

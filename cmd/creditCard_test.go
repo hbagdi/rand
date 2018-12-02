@@ -29,14 +29,14 @@ func TestCreditCardCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "credit-card",
-			Output: "MasterCard 2720995347682712 508 04/22\n",
+			Output: "MasterCard 2720995347682712 508 04/27\n",
 			IsErr:  false,
 		},
 		{
 			Name:  "repeat",
 			Input: "credit-card -c 2",
-			Output: "MasterCard 2720995347682712 508 04/22\n" +
-				"MasterCard 6527610785142054 401 07/23\n",
+			Output: "MasterCard 2720995347682712 508 04/27\n" +
+				"MasterCard 6527610785142054 401 07/28\n",
 			IsErr: false,
 		},
 		{

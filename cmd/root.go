@@ -28,9 +28,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
+var (
 	//VERSION is the current version of rand cli
-	VERSION = "v0.1.0"
+	VERSION = "version"
 )
 
 var count int

@@ -29,13 +29,13 @@ func TestSSNCmd(t *testing.T) {
 		{
 			Name:   "basic",
 			Input:  "ssn",
-			Output: "885-347-6827\n",
+			Output: "901072305\n",
 			IsErr:  false,
 		},
 		{
 			Name:   "repeat",
 			Input:  "ssn -c 2",
-			Output: "885-347-6827\n123-450-8582\n",
+			Output: "901072305\n241734987\n",
 			IsErr:  false,
 		},
 		{
