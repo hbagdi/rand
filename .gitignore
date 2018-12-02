@@ -29,3 +29,6 @@ _testmain.go
 # for this repo only
 rand
 .vscode/*
+
+# goreleaser
+dist
