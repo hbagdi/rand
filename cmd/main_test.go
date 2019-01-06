@@ -38,11 +38,12 @@ var (
 )
 
 type testItem struct {
-	Name      string
-	Input     string
-	Output    string
-	SubString string
-	IsErr     bool
+	Name        string
+	Input       string
+	Output      string
+	SubString   string
+	OutputRegex string
+	IsErr       bool
 }
 
 func TestMain(m *testing.M) {
@@ -69,6 +70,9 @@ func runTestTable(t *testing.T, tests []testItem) {
 			a := assert.New(t)
 			gofakeit.Seed(42)
 			out, err := testExecute(test.Input)
+			if test.OutputRegex != "" {
+				a.Regexp(test.OutputRegex, out)
+			}
 			if test.Output != "" {
 				a.Equal(test.Output, out)
 			}

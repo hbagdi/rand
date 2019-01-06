@@ -27,16 +27,18 @@ import (
 func TestETimeCmd(t *testing.T) {
 	tests := []testItem{
 		{
-			Name:   "basic",
-			Input:  "time",
-			Output: "1905-04-24 06:43:25.745640357 +0000 UTC\n",
-			IsErr:  false,
+			Name:  "basic",
+			Input: "time",
+			OutputRegex: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{9}" +
+				" \\+\\d{4} UTC\n",
+			IsErr: false,
 		},
 		{
 			Name:  "repeat",
 			Input: "time -c 2",
-			Output: "1905-04-24 06:43:25.745640357 +0000 UTC\n" +
-				"2016-04-15 01:47:15.260356828 +0000 UTC\n",
+			OutputRegex: "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{9}" +
+				" \\+\\d{4} UTC\n\\d{4}-\\d{2}-\\d{2}" +
+				" \\d{2}:\\d{2}:\\d{2}.\\d{9} \\+\\d{4} UTC\n",
 			IsErr: false,
 		},
 		{

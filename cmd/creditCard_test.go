@@ -27,16 +27,16 @@ import (
 func TestCreditCardCmd(t *testing.T) {
 	tests := []testItem{
 		{
-			Name:   "basic",
-			Input:  "credit-card",
-			Output: "MasterCard 2720995347682712 508 04/27\n",
-			IsErr:  false,
+			Name:        "basic",
+			Input:       "credit-card",
+			OutputRegex: "\\w+ \\d{16} \\d{3} \\d{2}/\\d{2}\n",
+			IsErr:       false,
 		},
 		{
 			Name:  "repeat",
 			Input: "credit-card -c 2",
-			Output: "MasterCard 2720995347682712 508 04/27\n" +
-				"MasterCard 6527610785142054 401 07/28\n",
+			OutputRegex: "\\w+ \\d{16} \\d{3} \\d{2}/\\d{2}\n" +
+				"\\w+ \\d{16} \\d{3} \\d{2}/\\d{2}\n",
 			IsErr: false,
 		},
 		{
