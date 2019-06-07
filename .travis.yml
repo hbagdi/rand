@@ -5,7 +5,6 @@ go:
 before_script:
   - GO_FILES=$(find . -iname '*.go' -type f | grep -v /vendor/)
   - go get golang.org/x/lint/golint
-  - go get honnef.co/go/tools/cmd/megacheck
   - go get github.com/fzipp/gocyclo
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure -v -vendor-only
@@ -15,6 +14,5 @@ script:
   - ./build.sh
   - go test -v ./...
   - go vet ./...
-  - megacheck ./...
   - gocyclo -over 19 $GO_FILES
   - golint -set_exit_status $(go list ./...)
