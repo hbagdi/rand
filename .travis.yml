@@ -1,18 +1,17 @@
 language: go
-go:
-  - "1.11.x"
 
-before_script:
-  - GO_FILES=$(find . -iname '*.go' -type f | grep -v /vendor/)
-  - go get golang.org/x/lint/golint
-  - go get github.com/fzipp/gocyclo
-  - go get -u github.com/golang/dep/cmd/dep
-  - dep ensure -v -vendor-only
+env:
+  global:
+  - GO111MODULE=on
+  - GOPROXY=https://proxy.golang.org
+go:
+  - "1.12"
 
 script:
-  - test -z $(gofmt -s -l $GO_FILES)
-  - ./build.sh
-  - go test -v ./...
-  - go vet ./...
-  - gocyclo -over 19 $GO_FILES
-  - golint -set_exit_status $(go list ./...)
+  - diff -u <(echo -n) <(gofmt -d -s .)
+  - go test ./...
+  - go vet .
+
+cache:
+  directories:
+   - $HOME/gopath/pkg/mod
